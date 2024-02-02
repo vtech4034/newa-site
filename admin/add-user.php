@@ -20,7 +20,7 @@ if (isset($_POST['save'])) {
         $result1 = mysqli_query($conn,$sql1);
         if($result==1)
         {
-            header("Location: http://localhost/news-site/admin/add-user.php");
+            header("Location : {$hostname}/admin/users.php");  
         }
     }
 }
