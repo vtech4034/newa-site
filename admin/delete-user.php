@@ -5,7 +5,7 @@ include 'config.php';
  
  if(mysqli_query($conn,$sql))
     {
-      header("Location : {$hostname}/admin/users.php");  
+      header("Location : http://localhost/NEWS-SITE/admin/users.php");
      }
 
      mysqli_close($coon);

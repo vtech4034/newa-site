@@ -12,7 +12,19 @@ include "config.php";
                   <a class="add-new" href="add-user.php">add user</a>
               </div>
               <?php
-                $sql="SELECT * FROM `user` ";
+
+
+                $limit=3;
+               
+                if(isset($_GET['page']))
+                {
+                    $page=$_GET['page'];
+                }else
+                {
+                    $page=1;
+                }
+                $offset=($page-1) * $limit;
+                $sql="SELECT * FROM `user` ORDER BY user_id limit {$offset} , {$limit}";
                 $result=mysqli_query($conn,$sql);
                 if(mysqli_num_rows($result)>0){
 
@@ -44,14 +56,48 @@ include "config.php";
                               <td class='delete'><a href='delete-user.php?id=<?php echo $row["user_id"]; ?>'><i class='fa fa-trash-o'></i></a></td>
                         </tr>
                         <?php 
-                        }?>
+                        }
+                        ?>
                       </tbody>
                   </table>
-                  <ul class='pagination admin-pagination'>
-                      <li class="active"><a>1</a></li>
-                      <li><a>2</a></li>
-                      <li><a>3</a></li>
-                  </ul>
+                 
+                  <?php 
+                     $sql2="SELECT *FROM  `user` ";
+                     $result2=mysqli_query($conn,$sql2);
+                     if(mysqli_num_rows($result2)>0){
+                     $totalResult=mysqli_num_rows($result2);
+                    
+                     $total_page=ceil($totalResult/$limit);
+                     echo "<ul class='pagination admin-pagination'>";
+                     if($page>1)
+                     {
+                        $page2=$page-1;
+                      echo '<li><a href="users.php?page='.$page2.' ">Prev</a></li>';
+                     }
+                     for($i=1;$i<=$total_page;$i++)
+                     {
+                        $active="";
+                        if($i==$page)
+                        {
+                            $active="active";
+                        }else
+                        {
+                            $active="";
+                        }
+                        echo '<li class="'.$active.'"><a href="users.php?page='.$i.' ">'.$i.'</a></li>';
+
+                     }
+                     if($total_page>$page)
+                     {
+                        $page2=$page+1;
+                     echo '<li><a href="users.php?page='.$page2.'">Next</a></li>';
+                     }echo " </ul>";
+                    }
+                    
+                  ?>
+                
+                 
+                
               </div>
               <?php
                 }
@@ -59,4 +105,4 @@ include "config.php";
           </div>
       </div>
   </div>
-<?php include "header.php"; ?>
+

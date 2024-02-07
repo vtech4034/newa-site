@@ -1,4 +1,6 @@
+
 <!doctype html>
+
 <html>
    <head>
         <meta charset="UTF-8">
@@ -18,7 +20,7 @@
                         <img class="logo" src="images/news.jpg">
                         <h3 class="heading">Admin</h3>
                         <!-- Form Start -->
-                        <form  action="" method ="POST">
+                        <form  action="<?php $_SERVER['PHP_SELF'];?>" method ="POST">
                             <div class="form-group">
                                 <label>Username</label>
                                 <input type="text" name="username" class="form-control" placeholder="" required>
@@ -30,6 +32,23 @@
                             <input type="submit" name="login" class="btn btn-primary" value="login" />
                         </form>
                         <!-- /Form  End -->
+
+                        <?php 
+                           if(isset($_POST['login']))
+                           {
+                           include 'config.php';
+                           $username=mysqli_real_escape_string($conn,$_POST['username']);
+                           $password=md5($_POST['username']);
+
+
+                           $sql="SELECT user_id, username, role FROM user where `username`='$username' and  `password`='$password' ";
+                           $result=mysqli_query($conn,$sql);
+                           if(mysqli_num_rows($result)>0)
+                           {
+                            echo "find";
+                           }
+                           }
+                        ?>
                     </div>
                 </div>
             </div>

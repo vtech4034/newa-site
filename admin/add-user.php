@@ -9,7 +9,7 @@ if (isset($_POST['save'])) {
     $role = mysqli_real_escape_string($conn,$_POST['role']);
 
     $sql = "SELECT  username FROM `user` WHERE username= '$username' ";
-    $result=mysqli_query($conn,$sql);;
+    $result=mysqli_query($conn,$sql);
     if(mysqli_num_rows($result)>0)
     {
       echo "<p style='display:flex;justify-content:center;text-align:center;'>Sorry! UserName Already Existing</p>";
@@ -20,7 +20,9 @@ if (isset($_POST['save'])) {
         $result1 = mysqli_query($conn,$sql1);
         if($result==1)
         {
-            header("Location : {$hostname}/admin/users.php");  
+            
+           header("Location: http://localhost/NEWS-SITE/admin/users.php");  
+            
         }
     }
 }
